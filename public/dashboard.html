@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyShare</title>
+    <title>SelfShare</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -23,11 +23,55 @@
       bind:checked="{checkbox}"
       class="toggle theme-controller"
     />
+    <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">
+      Open Sidebar
+    </label>
+  </div>
+</div>
+
+<div class="drawer lg:drawer-open">
+  <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col items-center justify-center">
+    <h1 class="font-bold">Your Recents</h1>
+    
+<!-- SelfShare Modal-->
+<input type="checkbox" id="my_modal_6" class="modal-toggle" />
+<div class="modal" role="dialog">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Create SelfShare</h3>
+    <p class="py-4">For now, SelfShare only supports text, but that is because this is a rough draft and will change soon.</p>
+    <textarea class="textarea textarea-bordered" id="shareInput" placeholder="Text"></textarea>
+    <div class="modal-action">
+     
+      <label for="my_modal_6" class="btn">Cancel</label>
+      <label for="my_modal_6" class="btn" onClick="saveShare()">Save</label>
+    </div>
+  </div>
+</div>
+    <br>
+    <div class="flex gap-4 items-center">
+    <div class="skeleton w-64 h-64"></div>
+    <div class="skeleton w-64 h-64"></div>
+    <div class="skeleton w-64 h-64"></div>
+    </div>
+  </div>
+  <div class="drawer-side">
+    <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+      <!-- Sidebar content here -->
+      <label for="my_modal_6" class="btn bg-base-100">New SelfShare</label>
+      
+      <li class=""></li>
+      <li><a>Setting 1</a></li>
+    </ul>
   </div>
 </div>
 </html>
 
 <script>
-
+function saveShare() {
+  let text = document.getElementById("shareInput").value;
+  alert("Made new note called " + text); // check to see if it works
+}
 
 </script>
