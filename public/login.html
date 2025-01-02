@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyShare - Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../registerScript.js"></script>
+</head>
+<div class="navbar bg-base-300">
+  <div class="flex-1">
+    <img src="https://myshare.haydar.dev/img/myshare_white.png" style="height: 64px; width: 64px;">
+    <a class="btn btn-ghost text-xl" href="https://myshare.haydar.dev">SelfShare</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-4">
+      <li><a>Download</a></li>
+      <li><a>Credits</a></li>
+    </ul>
+    <button class="btn bg-base-200" onclick="location.href='/register.html';">Login / Register</button>
+    <div class="divider divider-horizontal"></div>
+    <input
+      type="checkbox"
+      value="night"
+      bind:checked="{checkbox}"
+      class="toggle theme-controller"
+    />
+  </div>
+</div>
+<div class="hero bg-base-200 min-h-screen">
+<div class="card card-bordered bg-base-100 w-80">
+    <div class="card-body card-bordered">
+        <div class="container" style="display: grid;align-items: center; grid-template-columns: 1fr 1fr 1fr;column-gap: 2px;">
+         <img src="https://myshare.haydar.dev/img/myshare_white.png" style="height: 64px; width: 64px;">
+         <h2 class="text-2xl font-bold py-2 text-white">Login</h2>
+      </div>
+      <input id="email" placeholder="Email" class="input input-bordered" />
+      <input id="pw" type="password" placeholder="Password" class="input input-bordered" />
+
+      <button class="btn btn-primary" id="register" type="submit" onClick="postToServer()">Login</button>
+      <div class="divider"></div>
+      <p2 class="text-center">Don't have an account? <a class="link" href="/register.html">Register!</a></p2>
+    </div>
+  </div>
+</div>
+</html>
+
+<script>
+async function postToServer() {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('pw').value;
+     const userData = {
+      email: email,
+      password: password
+    };
+
+    try {
+      const response = await fetch('https://myshare.haydar.dev/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+      if (!response.ok) {
+        throw new Error('err');
+        alert(err);
+      }
+      const responseData = await response.json();
+      console.log('user saved:', responseData);
+      alert('logged in? ' + responseData);
+    } catch (error) {
+      console.error('err:', error);
+      alert("error" + error);
+    }
+  }
+
+</script>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SelfShare</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
+      integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="css/aos.css" />
+  </head>
+  <div class="navbar bg-base-300">
+    <div class="flex-1">
+      <img src="https://myshare.haydar.dev/img/myshare_white.png" style="height: 64px; width: 64px;">
+      <a class="btn btn-ghost text-xl" href="https://myshare.haydar.dev">MyShare</a>
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-4">
+        <li><a>Download</a></li>
+        <li><a>Credits</a></li>
+      </ul>
+      <button class="btn bg-base-200" onclick="location.href='/register.html';">Login / Register</button>
+      <div class="divider divider-horizontal"></div>
+      <input
+        type="checkbox"
+        value="night"
+        bind:checked="{checkbox}"
+        class="toggle theme-controller"
+      />
+    </div>
+  </div>
+  <div
+    id="bg"
+    class="hero bg-base-200 min-h-screen"
+    style="background-image: url(https://myshare.haydar.dev/img/me.png)"
+    >
+    <div class="hero-overlay bg-opacity-90"></div>
+    <div class="hero-content text-neutral-content text-center">
+      <div class="max-w-md">
+        <h1
+          id="title"
+          class="text-5xl font-bold"
+          data-aos="fade-up"
+          data-aos-delay="0"
+          data-aos-duration="1000"
+          data-aos-once="true"
+        >
+          Sync your files remotely
+        </h1>
+        <p
+          class="py-6"
+          data-aos="fade-down"
+          data-aos-delay="0"
+          data-aos-duration="1000"
+          data-aos-once="true"
+        >
+          SelfShare is a sub-service owned by MyShare that allows you
+          to send files to yourself and let them decay after a period of time.
+        </p>
+        <button class="btn bg-primary font-bold px-4" onclick="location.href='/pricing.html';">
+          Get Started
+        </button>
+        <br />
+        <br />
+        <div class="stats stats-vertical lg:stats-horizontal shadow">
+          <div class="stat">
+            <div class="stat-title">Total Users</div>
+            <div class="stat-value" id="totalUserValue">0</div>
+            <div class="stat-desc">All-Time</div>
+          </div>
+          <div class="stat">
+            <div class="stat-title"> Uploads</div>
+            <div class="stat-value">0</div>
+            <div class="stat-desc">Today</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero bg-base-100 min-h-screen">
+    <div class="hero-content flex-col lg:flex-row">
+      <img class="skeleton max-w-sm rounded-lg shadow-2xl" src="https://myshare.haydar.dev/img/rie.png" />
+      <div>
+        <h1 class="text-5xl font-bold">The Universal Micro-Clipboard.</h1>
+        <p class="py-6">
+          SelfShare aims to be an open source clipboard that you can use across
+          devices.
+        </p>
+        <p class="py-2 px-2">
+          Some of our features include
+          <li>Save your files directly</li>
+          <li>Automatically decay files after a certain time</li>
+        </p>
+        <br>
+        <button class="btn btn-primary">Learn More</button> <br/>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero bg-base-300 min-h-screen">
+    <div class="hero-content flex-col lg:flex-row">
+      <img class="skeleton max-w-sm rounded-lg shadow-2xl" />
+      <div>
+        <h1 class="text-5xl font-bold">Why use MyShare?</h1>
+        <p class="py-6">
+         Have you ever wanted to send files between yourself, but for 
+         some reason you weren't able to? Have you ever wanted to send an
+         image through Discord, but couldn't because you didn't have access 
+         at the time? MyShare is able to completely rid this issue by having 
+         desktop, web, and mobile support to send and upload files and notes.
+        </p>
+        <br>
+        <p class="py-2">
+           Upload it on one device, copy it on another, send it wherever.
+        </p>
+        <button class="btn btn-primary">Learn More</button> <br />
+        <br/>
+      </div>
+    </div>
+  </div>
+</html>
+<script src="js/aos.js"></script>
+<script>
+  AOS.init({});
+
+  $.get("https://myshare.haydar.dev/api/users", (data, status) => {
+    document.getElementById("totalUserValue").innerHTML = data.totalUsers;
+    console.log(data);
+    console.log(status);
+  });
+
+  window.onload = function () {
+    const dialogues = [
+      "Sync your files remotely",
+    ];
+    var choose = Math.floor(Math.random() * dialogues.length);
+    document.getElementById("title").textContent = dialogues[choose];
+  };
+
+  // code for if the person is auth'd they can instantly go to the dashboard
+</script>
