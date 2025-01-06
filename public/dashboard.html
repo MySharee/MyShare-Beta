@@ -6,6 +6,11 @@
     <title>SelfShare</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .multiline {
+  white-space: pre-wrap;
+}
+</style>
 </head>
 <div class="navbar bg-base-300">
   <div class="flex-1">
@@ -32,7 +37,7 @@
 <div class="drawer lg:drawer-open">
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content flex flex-col items-center justify-center">
-    <h1 class="font-bold">Your Recents</h1>
+    <h1 class="font-bold text-xl">Your Recents</h1><br>
     
 <!-- SelfShare Modal-->
 <input type="checkbox" id="my_modal_6" class="modal-toggle" />
@@ -40,6 +45,7 @@
   <div class="modal-box">
     <h3 class="text-lg font-bold">Create SelfShare</h3>
     <p class="py-4">For now, SelfShare only supports text, but that is because this is a rough draft and will change soon.</p>
+    <textarea class="textarea textarea-bordered" id="shareInput" placeholder="Title"></textarea><br>
     <textarea class="textarea textarea-bordered" id="shareInput" placeholder="Text"></textarea>
     <div class="modal-action">
      
@@ -50,10 +56,59 @@
 </div>
     <br>
     <!-- Here is where I want the text / images to load dynamically. (Aka get it from database)-->
-    <div class="flex gap-4 items-center">
-    <div class="skeleton w-64 h-64"></div>
-    <div class="skeleton w-64 h-64"></div>
-    <div class="skeleton w-64 h-64"></div>
+    <!--WIP: style=`display: grid; grid-template-columns: repeat(3,1fr);` 
+    <div class="card bg-base-300 w-96 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title font-bold">
+            Notes To Self
+          </h2>
+          <p>notes can have tags such as importance, etc. also pinning notes too because thats nice. how should we handle decay? can we let the user extend it?</p>
+          <div class="card-actions justify-end">
+            <div class="badge badge-outline badge-error">important</div>
+            <div class="badge badge-outline badge-error">expires in 29m</div>
+          </div>
+        </div>
+      </div>-->
+    <div id="notes" class="flex gap-8 items-center">
+    <div class="card bg-base-300 w-96 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title font-bold">
+          Notes To Self
+        </h2>
+        <p>notes can have tags such as importance, etc. also pinning notes too because thats nice. how should we handle decay? can we let the user extend it?</p>
+        <div class="card-actions justify-end">
+          <div class="badge badge-outline badge-error">important</div>
+          <div class="badge badge-outline badge-error">expires in 29m</div>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-base-300 w-96 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">
+          My passwords
+        </h2>
+        <p class="multiline">insert some passwors here
+can be multi-line!
+yea yea yea 3 lines thats so swag <b>and bold.</b>...
+        </p>
+        <div class="card-actions justify-end">
+          <div class="badge badge-outline badge-error">important</div>
+          <div class="badge badge-outline">no expiration</div>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-base-300 w-96 shadow-xl">
+      <div class="card-body">
+        <h2 class="card-title">
+          Note Title
+        </h2>
+        <p>%NOTE DESCRIPTION%</p>
+        <div class="card-actions justify-end">
+          <div class="badge badge-outline badge-error">important</div>
+          <div class="badge badge-outline badge-warning">expires in 2h 39m</div>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
   <div class="drawer-side">
@@ -74,5 +129,26 @@ function saveShare() {
 
   // Here is where I want to put it in the database, and also make sure it shows up in the dashboard too
 }
+
+function loadShares() {
+  let content = `
+  <div class="card bg-base-300 w-96 shadow-xl">
+      <div class="card-body">
+        <h2 id="note-title" class="card-title">
+          ${TITLE}
+        </h2>
+        <p id="note-content" class="multiline">${DESCRIPTION}
+        </p>
+        <div id="badges" class="card-actions justify-end">
+          <div class="badge badge-outline badge-error">important</div>
+          <div class="badge badge-outline">no expiration</div>
+        </div>
+      </div>
+    </div>
+    `;
+    document.getElementById("notes").innerHTML += content;
+}
+
+loadShares();
 
 </script>

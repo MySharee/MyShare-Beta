@@ -73,6 +73,7 @@ async function postToServer() {
       window.location.replace("https://selfshare.haydar.dev/dashboard.html");
     } catch (error) {
       console.error('err:', error);
+      window.location.replace("https://selfshare.haydar.dev/login.html");
       alert("error" + error);
     }
   }
