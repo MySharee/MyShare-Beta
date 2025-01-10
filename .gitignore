@@ -1,7 +1,7 @@
 node_modules
 routes/userRoutes.js
-utils/*
 app.js
+utils/*
 
 .vscode
 .env

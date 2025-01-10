@@ -6,6 +6,7 @@
     <title>SelfShare</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
       .multiline {
   white-space: pre-wrap;
@@ -17,8 +18,7 @@
     <a class="btn btn-ghost text-xl" href="https://myshare.haydar.dev">SelfShare</a>
   </div>
   <div class="flex-none">
-    <ul class="menu menu-horizontal px-4">
-      <li><a>Quick Upload</a></li>
+    <ul class="menu menu-horizontal px-2">
       <li><a>Download</a></li>
     </ul>
     <div class="divider divider-horizontal"></div>
@@ -42,107 +42,109 @@
 <!-- SelfShare Modal-->
 <input type="checkbox" id="my_modal_6" class="modal-toggle" />
 <div class="modal" role="dialog">
-  <div class="modal-box">
-    <h3 class="text-lg font-bold">Create SelfShare</h3>
-    <p class="py-4">For now, SelfShare only supports text, but that is because this is a rough draft and will change soon.</p>
-    <textarea class="textarea textarea-bordered" id="shareInput" placeholder="Title"></textarea><br>
-    <textarea class="textarea textarea-bordered" id="shareInput" placeholder="Text"></textarea>
+  <div class="modal-box space-y-3">
+    <h2 class="text-lg font-bold">Create SelfShare</h2>
+    <p>For now, SelfShare only supports text, but that is because this is a rough draft and will change soon.</p>
+    <input type="text" id="shareInput_title" placeholder="Title" class="input input-bordered w-full max-w-xs" /><br>
+    <textarea class="textarea textarea-bordered w-full max-w-xs" id="shareInput_content" placeholder="Content"></textarea>
     <div class="modal-action">
      
       <label for="my_modal_6" class="btn">Cancel</label>
-      <label for="my_modal_6" class="btn" onClick="saveShare()">Save</label>
+      <label for="my_modal_6" class="btn bg-success text-white" onClick="saveShare()">Save</label>
     </div>
   </div>
 </div>
     <br>
     <!-- Here is where I want the text / images to load dynamically. (Aka get it from database)-->
     <!--WIP: style=`display: grid; grid-template-columns: repeat(3,1fr);` 
-    <div class="card bg-base-300 w-96 shadow-xl">
-        <div class="card-body">
-          <h2 class="card-title font-bold">
-            Notes To Self
-          </h2>
-          <p>notes can have tags such as importance, etc. also pinning notes too because thats nice. how should we handle decay? can we let the user extend it?</p>
-          <div class="card-actions justify-end">
-            <div class="badge badge-outline badge-error">important</div>
-            <div class="badge badge-outline badge-error">expires in 29m</div>
-          </div>
-        </div>
-      </div>-->
-    <div id="notes" class="flex gap-8 items-center">
-    <div class="card bg-base-300 w-96 shadow-xl">
-      <div class="card-body">
-        <h2 class="card-title font-bold">
-          Notes To Self
-        </h2>
-        <p>notes can have tags such as importance, etc. also pinning notes too because thats nice. how should we handle decay? can we let the user extend it?</p>
-        <div class="card-actions justify-end">
-          <div class="badge badge-outline badge-error">important</div>
-          <div class="badge badge-outline badge-error">expires in 29m</div>
-        </div>
+      
+    -->
+    <div id="notes" class="flex gap-8 items-center"> <!-- help. i only want 3 in 1 row but i cant figure it out even tho its flex/flexbox but its being stubborn-->
+
       </div>
-    </div>
-    <div class="card bg-base-300 w-96 shadow-xl">
-      <div class="card-body">
-        <h2 class="card-title">
-          My passwords
-        </h2>
-        <p class="multiline">insert some passwors here
-can be multi-line!
-yea yea yea 3 lines thats so swag <b>and bold.</b>...
-        </p>
-        <div class="card-actions justify-end">
-          <div class="badge badge-outline badge-error">important</div>
-          <div class="badge badge-outline">no expiration</div>
-        </div>
-      </div>
-    </div>
-    <div class="card bg-base-300 w-96 shadow-xl">
-      <div class="card-body">
-        <h2 class="card-title">
-          Note Title
-        </h2>
-        <p>%NOTE DESCRIPTION%</p>
-        <div class="card-actions justify-end">
-          <div class="badge badge-outline badge-error">important</div>
-          <div class="badge badge-outline badge-warning">expires in 2h 39m</div>
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
+      </div>  
   <div class="drawer-side">
     <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-      <label for="my_modal_6" class="btn bg-base-100">New SelfShare</label>
+      <label for="my_modal_6" class="btn bg-primary text-white">New SelfShare</label>
       <li class=""></li> <!--Divider-->
       <li><a>Upload Settings</a></li>
+      <li><a>Embed Configuration</a></li>
+      <li class=""></li> <!--Divider-->
+      <li><a class="text-red-400">Delete Notes</a></li>
     </ul>
   </div>
 </div>
 </html>
-
+<script type="text/javascript" src="getShareDetails.js"></script>
 <script>
-function saveShare() {
-  let text = document.getElementById("shareInput").value;
-  alert("Made new note called " + text); // check to see if it works
 
-  // Here is where I want to put it in the database, and also make sure it shows up in the dashboard too
+async function saveShare() {
+  let user = "TestUser"
+  let textcontent = document.getElementById("shareInput_content").value;
+  let title = document.getElementById("shareInput_title").value;
+  const userData = {
+      author: user,
+      title: title,
+      content: textcontent
+    };
+    try {
+      const response = await fetch('https://selfshare.haydar.dev/api/users/savenote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+      if (!response.ok) {
+        throw new Error('err');
+        console.log(err);
+      }
+      const responseData = await response.json();
+      alert('note made');
+    } catch (error) {
+      console.error('err:', error);
+    }
 }
 
-function loadShares() {
+async function loadShares() {
+  let user = "TestUser"
+  const userData = {
+      author: user
+    };
+    try {
+      const response = await fetch('https://selfshare.haydar.dev/api/users/getnotes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+      if (!response.ok) {
+        throw new Error('err');
+        console.log(err);
+      }
+      const responseData = await response.json();
+      console.log('FOUND sstuff' + responseData);
+    } catch (error) {
+      console.error('err:', error);
+    }
+
+  let TITLE = "Title";
   let content = `
   <div class="card bg-base-300 w-96 shadow-xl">
       <div class="card-body">
         <h2 id="note-title" class="card-title">
           ${TITLE}
         </h2>
-        <p id="note-content" class="multiline">${DESCRIPTION}
+        <p id="note-content" class="multiline">
+          Description
         </p>
         <div id="badges" class="card-actions justify-end">
           <div class="badge badge-outline badge-error">important</div>
           <div class="badge badge-outline">no expiration</div>
         </div>
+        <button class="btn btn-sm" id="openNote()">View</button>
       </div>
     </div>
     `;
@@ -150,5 +152,4 @@ function loadShares() {
 }
 
 loadShares();
-
 </script>
