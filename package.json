@@ -1,7 +1,7 @@
 {
   "name": "myshare",
   "version": "1.0.0",
-  "description": "Share files, notes, and links from any device. Specifically designed to have a clean, robust interface with multi-platform support and fast updating.",
+  "description": "Share files, notes, and links from any device. Designed to have a clean, robust interface with multi-platform support and fast updating.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
