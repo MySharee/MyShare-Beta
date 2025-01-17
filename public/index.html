@@ -157,13 +157,13 @@
 <script>
   AOS.init({});
 
-  $.get("https://selfshare.haydar.dev/api/users", (data, status) => {
+  $.get("https://myshare.haydar.dev/api/users", (data, status) => {
     document.getElementById("totalUserValue").innerHTML = data.totalUsers;
     console.log(data);
     console.log(status);
   });
 
-    $.get("https://selfshare.haydar.dev/api/notes", (data, status) => {
+    $.get("https://myshare.haydar.dev/api/notes", (data, status) => {
     document.getElementById("totalNotesValue").innerHTML = data.totalNotes;
   });
 
