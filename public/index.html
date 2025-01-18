@@ -6,12 +6,7 @@
     <title>MyShare</title>
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
-    <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/css/app.css" rel="stylesheet">
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
       integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
@@ -64,9 +59,9 @@
   <div
     id="bg"
     class="hero bg-base-200 min-h-screen"
-    style="background-image: url(https://myshare.haydar.dev/img/me.png)"
+    style="background-image: url(https://myshare.haydar.dev/img/background.png)"
     >
-    <div class="hero-overlay bg-opacity-60"></div>
+    <div class="hero-overlay bg-opacity-80"></div>
     <div class="hero-content text-neutral-content text-center">
       <div class="max-w-md">
         <h1
@@ -78,11 +73,11 @@
           data-aos-once="true"
           style="
           font-size: 64px;
-          background: -webkit-linear-gradient(#9ec5ff, #1c2167);
+          background: -webkit-linear-gradient(#a09eff, #333bb1);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;"
         >
-          Your universal clipboard
+          Your Universal Clipboard
         </h1>
         <p
           class="py-6"
@@ -169,7 +164,7 @@
 
   window.onload = function () {
     const dialogues = [
-      "The universal clipboard",
+      "The Universal Clipboard",
     ];
     var choose = Math.floor(Math.random() * dialogues.length);
     document.getElementById("title").textContent = dialogues[choose];
